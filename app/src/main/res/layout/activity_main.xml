@@ -1,99 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/main_falling_word"
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="teste"
-        android:textColor="@color/primary_text"
-        android:textSize="24sp" />
+        android:id="@+id/main_start_game"
+        android:layout_centerInParent="true"
+        android:text="@string/main_start_game" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/main_game_layout"
+        android:animateLayoutChanges="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/main_falling_word"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:text="teste"
+            android:textColor="@color/primary_text"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/score"
-            android:textColor="@color/primary_text"
-            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/score"
+                android:textColor="@color/primary_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓ 0"
+                android:textColor="@color/colorCheckMark"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X 0"
+                android:textColor="@color/colorWrong"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O 0"
+                android:textColor="@color/primary_text"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+
+            android:id="@+id/main_current_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="poqiepqie"
+            android:textAllCaps="true"
+            android:textColor="@color/secondary_text"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
+        <Button
+            android:id="@+id/main_word_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="✓ 0"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:onClick=""
+            android:text="@string/main_word_ok"
             android:textColor="@color/colorCheckMark"
-            android:textSize="14sp" />
+            android:textSize="36sp" />
 
-        <TextView
+
+        <Button
+            android:id="@+id/main_word_nok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X 0"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@null"
+            android:onClick=""
+            android:text="@string/main_word_nok"
             android:textColor="@color/colorWrong"
-            android:textSize="14sp" />
+            android:textSize="36sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="O 0"
-            android:textColor="@color/primary_text"
-            android:textSize="14sp" />
-
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="poqiepqie"
-        android:textAllCaps="true"
-        android:textColor="@color/secondary_text"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@null"
-        android:text="OK"
-        android:textColor="@color/colorCheckMark"
-        android:textSize="36sp" />
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@null"
-        android:text="Wrong"
-        android:textColor="@color/colorWrong"
-        android:textSize="36sp" />
+    </RelativeLayout>
 </RelativeLayout>

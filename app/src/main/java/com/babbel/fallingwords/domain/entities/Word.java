@@ -1,4 +1,4 @@
-package com.babbel.fallingwords.model;
+package com.babbel.fallingwords.domain.entities;
 
 import io.realm.RealmObject;
 

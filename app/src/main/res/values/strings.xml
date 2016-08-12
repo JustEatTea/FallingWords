@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Falling Words</string>
     <string name="score">Score:</string>
+
+    <string name="main_word_ok">OK</string>
+    <string name="main_word_nok">Wrong</string>
+    <string name="main_start_game">Start</string>
 </resources>
