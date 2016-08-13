@@ -13,6 +13,7 @@
         android:text="@string/main_start_game" />
 
     <RelativeLayout
+
         android:id="@+id/main_game_layout"
         android:animateLayoutChanges="true"
         android:layout_width="match_parent"
@@ -28,52 +29,16 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="bottom"
-            android:text="teste"
             android:textColor="@color/primary_text"
             android:textSize="24sp" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <com.babbel.fallingwords.ui.compoundviews.ScoreCustomView
+            android:id="@+id/main_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/score"
-                android:textColor="@color/primary_text"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="✓ 0"
-                android:textColor="@color/colorCheckMark"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="X 0"
-                android:textColor="@color/colorWrong"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="O 0"
-                android:textColor="@color/primary_text"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
+            android:layout_alignParentTop="true"/>
 
 
         <TextView

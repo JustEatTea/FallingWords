@@ -3,6 +3,7 @@ package com.babbel.fallingwords.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.babbel.fallingwords.R;
+import com.babbel.fallingwords.ui.compoundviews.ScoreCustomView;
 
 /**
  * Created by felipe on 8/10/16.
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     private Button startGameBtn;
     private RelativeLayout gameLayout;
     private Animation animationFalling;
+    private ScoreCustomView score;
 
     private MainPresenter presenter;
 
@@ -39,13 +42,13 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         wordOkBtn = (Button) findViewById(R.id.main_word_ok);
         startGameBtn = (Button) findViewById(R.id.main_start_game);
         gameLayout = (RelativeLayout) findViewById(R.id.main_game_layout);
-
-        animationFalling = AnimationUtils.loadAnimation(this, R.anim.falling);
+        score = (ScoreCustomView) findViewById(R.id.main_score);
 
         wordOkBtn.setOnClickListener(this);
         workNotOkBtn.setOnClickListener(this);
+        startGameBtn.setOnClickListener(this);
         presenter = new MainPresenterImpl(this);
-        animationFalling.setAnimationListener(this);
+        presenter.populateData();
     }
 
 
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void startFallingAnimation() {
+
+        animationFalling = AnimationUtils.loadAnimation(this, R.anim.falling);
+        animationFalling.setAnimationListener(this);
         fallingWordTxtView.startAnimation(animationFalling);
     }
 
@@ -71,14 +77,35 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     }
 
     @Override
+    public void setRightAnswer(String answer) {
+        this.score.setRightAnswer(answer);
+    }
+
+    @Override
+    public void setWrongAnswer(String answer) {
+        this.score.setWrongAnswer(answer);
+    }
+
+
+    @Override
+    public void stopFallingAnimation() {
+        animationFalling.cancel();
+    }
+
+    @Override
+    public void setNotAnswered(String answer) {
+        this.score.setNotAnswered(answer);
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()){
             case R.id.main_word_ok:
-                presenter.onWordOkBtnClicked();
+                presenter.onWordOkBtnClicked(fallingWordTxtView.getText().toString());
                 break;
             case R.id.main_word_nok:
-                presenter.onWordNokBtnClicked();
+                presenter.onWordNokBtnClicked(fallingWordTxtView.getText().toString());
                 break;
 
             case R.id.main_start_game:
@@ -89,16 +116,18 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void onAnimationStart(Animation animation) {
-
+        Log.e("START","START");
     }
 
     @Override
     public void onAnimationEnd(Animation animation) {
-
+        Log.e("END","END");
+        presenter.setWordNotAnswered();
+        presenter.getNextWordOption();
     }
 
     @Override
     public void onAnimationRepeat(Animation animation) {
-
+        Log.e("REPEAR","REPEAR");
     }
 }

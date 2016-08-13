@@ -9,5 +9,9 @@ public interface MainView {
     void startFallingAnimation();
     void hideStartBtnAndShowGame();
     void setFallingWord(String fallingWord);
+    void setRightAnswer(String answer);
+    void setWrongAnswer(String answer);
+    void stopFallingAnimation();
+    void setNotAnswered(String answer);
 
 }
