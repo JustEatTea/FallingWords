@@ -14,7 +14,7 @@ public class MainPresenterImpl implements MainPresenter{
     private MainView mainView;
     private List<Word> options;
     private Word currentWordToTranslate;
-    private final int totalOfWordsPerGame = 10;
+    private final int totalOfWordsPerGame = 1;
     private int translatedWords;
     private int rightAnswers;
     private int wrongAnswers;
@@ -33,12 +33,12 @@ public class MainPresenterImpl implements MainPresenter{
 
         if(currentWord.contentEquals(this.currentWordToTranslate.getText_spa())){
             rightAnswers++;
-            mainView.setRightAnswer("");
+            setRightAnswer();
             getNextWordToTranslate();
         }
         else{
             wrongAnswers++;
-            mainView.setWrongAnswer("");
+            setWrongAnswer();
             getNextWordOption();
         }
     }
@@ -48,21 +48,31 @@ public class MainPresenterImpl implements MainPresenter{
 
         if(!currentWord.contentEquals(this.currentWordToTranslate.getText_spa())){
             rightAnswers++;
-            mainView.setRightAnswer("");
+            setRightAnswer();
         }
         else{
             wrongAnswers++;
-            mainView.setWrongAnswer("");
+            setWrongAnswer();
         }
         getNextWordOption();
     }
 
     @Override
     public void startGame() {
+
         translatedWords = 0;
+        rightAnswers = 0;
+        wrongAnswers= 0;
+        notAnswered = 0;
+        setWrongAnswer();
+        setRightAnswer();
+        setNotAnswered();
+        mainView.enableWrongOkButtons(true);
         mainView.hideStartBtnAndShowGame();
         getNextWordToTranslate();
     }
+
+
 
     @Override
     public void populateData() {
@@ -87,13 +97,15 @@ public class MainPresenterImpl implements MainPresenter{
     @Override
     public void setWordNotAnswered() {
         notAnswered++;
+        setNotAnswered();
     }
 
 
-    private  void getNextWordToTranslate(){
+    private void getNextWordToTranslate(){
 
         if(translatedWords == totalOfWordsPerGame){
-            mainView.stopFallingAnimation();
+            mainView.setGameEndedState();
+
         }
         else {
             translatedWords++;
@@ -104,5 +116,18 @@ public class MainPresenterImpl implements MainPresenter{
             getNextWordOption();
         }
     }
+
+    private void setNotAnswered() {
+        mainView.setNotAnswered("O "+ notAnswered);
+    }
+
+    private void setRightAnswer() {
+        mainView.setRightAnswer("✓ " + rightAnswers);
+    }
+
+    private void setWrongAnswer() {
+        mainView.setWrongAnswer("X " + wrongAnswers);
+    }
+
 
 }

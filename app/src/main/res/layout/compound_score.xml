@@ -12,31 +12,28 @@
         android:gravity="center"
         android:text="@string/score"
         android:textColor="@color/primary_text"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/score_right"
+        style="@style/ScoreCounterTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="✓ 0"
-        android:textColor="@color/colorCheckMark"
-        android:textSize="14sp" />
+        android:textColor="@color/colorCheckMark" />
 
     <TextView
         android:id="@+id/score_wrong"
+        style="@style/ScoreCounterTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X 0"
-        android:textColor="@color/colorWrong"
-        android:textSize="14sp" />
+        android:textColor="@color/colorWrong" />
 
     <TextView
         android:id="@+id/score_not_answered"
+        style="@style/ScoreCounterTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="O 0"
-        android:textColor="@color/primary_text"
-        android:textSize="14sp" />
+        android:textColor="@color/primary_text" />
 
 </LinearLayout>

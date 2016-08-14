@@ -3,7 +3,6 @@ package com.babbel.fallingwords.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -88,13 +87,23 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
 
     @Override
-    public void stopFallingAnimation() {
-        animationFalling.cancel();
+    public void setGameEndedState(){
+        animationFalling.setAnimationListener(null);
+        fallingWordTxtView.setText("");
+        currentWord.setText("");
+        startGameBtn.setVisibility(View.VISIBLE);
+        enableWrongOkButtons(false);
     }
 
     @Override
     public void setNotAnswered(String answer) {
         this.score.setNotAnswered(answer);
+    }
+
+    @Override
+    public void enableWrongOkButtons(boolean enable) {
+        wordOkBtn.setEnabled(enable);
+        workNotOkBtn.setEnabled(enable);
     }
 
     @Override
@@ -116,18 +125,15 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
 
     @Override
     public void onAnimationStart(Animation animation) {
-        Log.e("START","START");
     }
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        Log.e("END","END");
         presenter.setWordNotAnswered();
         presenter.getNextWordOption();
     }
 
     @Override
     public void onAnimationRepeat(Animation animation) {
-        Log.e("REPEAR","REPEAR");
     }
 }

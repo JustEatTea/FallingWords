@@ -11,7 +11,8 @@ public interface MainView {
     void setFallingWord(String fallingWord);
     void setRightAnswer(String answer);
     void setWrongAnswer(String answer);
-    void stopFallingAnimation();
+    void setGameEndedState();
     void setNotAnswered(String answer);
+    void enableWrongOkButtons(boolean enable);
 
 }
