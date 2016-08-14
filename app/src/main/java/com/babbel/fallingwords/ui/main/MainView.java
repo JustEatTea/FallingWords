@@ -9,10 +9,12 @@ public interface MainView {
     void startFallingAnimation();
     void hideStartBtnAndShowGame();
     void setFallingWord(String fallingWord);
-    void setRightAnswer(String answer);
-    void setWrongAnswer(String answer);
+    void setRightAnswer(int score);
+    void setWrongAnswer(int score);
     void setGameEndedState();
-    void setNotAnswered(String answer);
+    void setNotAnswered(int score);
     void enableWrongOkButtons(boolean enable);
+    void startLoadingData();
+    void endLoadingData();
 
 }

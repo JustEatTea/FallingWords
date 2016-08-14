@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     private RelativeLayout gameLayout;
     private Animation animationFalling;
     private ScoreCustomView score;
+    private ProgressBar progressBar;
 
     private MainPresenter presenter;
 
@@ -42,12 +44,14 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         startGameBtn = (Button) findViewById(R.id.main_start_game);
         gameLayout = (RelativeLayout) findViewById(R.id.main_game_layout);
         score = (ScoreCustomView) findViewById(R.id.main_score);
+        progressBar = (ProgressBar) findViewById(R.id.main_progress);
 
         wordOkBtn.setOnClickListener(this);
         workNotOkBtn.setOnClickListener(this);
         startGameBtn.setOnClickListener(this);
         presenter = new MainPresenterImpl(this);
         presenter.populateData();
+
     }
 
 
@@ -76,13 +80,18 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     }
 
     @Override
-    public void setRightAnswer(String answer) {
-        this.score.setRightAnswer(answer);
+    public void setRightAnswer(int score) {
+        this.score.setRightAnswer("✓ " + score);
     }
 
     @Override
-    public void setWrongAnswer(String answer) {
-        this.score.setWrongAnswer(answer);
+    public void setWrongAnswer(int score) {
+        this.score.setWrongAnswer("X " + score);
+    }
+
+    @Override
+    public void setNotAnswered(int score) {
+        this.score.setNotAnswered("O "+ score);
     }
 
 
@@ -95,15 +104,26 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         enableWrongOkButtons(false);
     }
 
-    @Override
-    public void setNotAnswered(String answer) {
-        this.score.setNotAnswered(answer);
-    }
+
 
     @Override
     public void enableWrongOkButtons(boolean enable) {
         wordOkBtn.setEnabled(enable);
         workNotOkBtn.setEnabled(enable);
+    }
+
+    @Override
+    public void startLoadingData() {
+        progressBar.setVisibility(View.VISIBLE);
+        startGameBtn.setAlpha(0.5f);
+        startGameBtn.setEnabled(false);
+    }
+
+    @Override
+    public void endLoadingData() {
+        progressBar.setVisibility(View.GONE);
+        startGameBtn.setAlpha(1f);
+        startGameBtn.setEnabled(true);
     }
 
     @Override

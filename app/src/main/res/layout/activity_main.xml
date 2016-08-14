@@ -12,6 +12,15 @@
         android:layout_centerInParent="true"
         android:text="@string/main_start_game" />
 
+    <ProgressBar
+        android:id="@+id/main_progress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:indeterminate="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_start_game"
+        android:layout_centerHorizontal="true" />
+
     <RelativeLayout
 
         android:id="@+id/main_game_layout"
@@ -53,6 +62,7 @@
             android:textColor="@color/secondary_text"
             android:textSize="24sp"
             android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/main_word_ok"

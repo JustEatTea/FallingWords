@@ -1,6 +1,7 @@
 package com.babbel.fallingwords.ui.main;
 
 import com.babbel.fallingwords.domain.entities.Word;
+import com.babbel.fallingwords.domain.interactors.WordInteractorImpl;
 import com.babbel.fallingwords.domain.interactors.WordInteractor;
 
 import java.util.Collections;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by felipe on 8/11/16.
  */
-public class MainPresenterImpl implements MainPresenter{
+public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLoaded{
 
     private MainView mainView;
     private List<Word> options;
@@ -23,20 +24,19 @@ public class MainPresenterImpl implements MainPresenter{
     private WordInteractor wordInteractor;
 
 
-    public MainPresenterImpl(MainView mainView){
+    public MainPresenterImpl(MainView mainView) {
         this.mainView = mainView;
-        this.wordInteractor = new WordInteractor();
+        this.wordInteractor = new WordInteractorImpl();
     }
 
     @Override
     public void onWordOkBtnClicked(String currentWord) {
 
-        if(currentWord.contentEquals(this.currentWordToTranslate.getText_spa())){
+        if (currentWord.contentEquals(this.currentWordToTranslate.getText_spa())) {
             rightAnswers++;
             setRightAnswer();
             getNextWordToTranslate();
-        }
-        else{
+        } else {
             wrongAnswers++;
             setWrongAnswer();
             getNextWordOption();
@@ -46,11 +46,10 @@ public class MainPresenterImpl implements MainPresenter{
     @Override
     public void onWordNokBtnClicked(String currentWord) {
 
-        if(!currentWord.contentEquals(this.currentWordToTranslate.getText_spa())){
+        if (!currentWord.contentEquals(this.currentWordToTranslate.getText_spa())) {
             rightAnswers++;
             setRightAnswer();
-        }
-        else{
+        } else {
             wrongAnswers++;
             setWrongAnswer();
         }
@@ -62,7 +61,7 @@ public class MainPresenterImpl implements MainPresenter{
 
         translatedWords = 0;
         rightAnswers = 0;
-        wrongAnswers= 0;
+        wrongAnswers = 0;
         notAnswered = 0;
         setWrongAnswer();
         setRightAnswer();
@@ -73,17 +72,17 @@ public class MainPresenterImpl implements MainPresenter{
     }
 
 
-
     @Override
     public void populateData() {
-        wordInteractor.populateData();
+        mainView.startLoadingData();
+        wordInteractor.populateData(this);
     }
 
     @Override
-    public void getNextWordOption(){
+    public void getNextWordOption() {
 
-        for(Word word : options){
-            if(!word.isUsed()){
+        for (Word word : options) {
+            if (!word.isUsed()) {
                 word.setUsed(true);
                 mainView.startFallingAnimation();
                 mainView.setFallingWord(word.getText_spa());
@@ -101,13 +100,12 @@ public class MainPresenterImpl implements MainPresenter{
     }
 
 
-    private void getNextWordToTranslate(){
+    private void getNextWordToTranslate() {
 
-        if(translatedWords == totalOfWordsPerGame){
+        if (translatedWords == totalOfWordsPerGame) {
             mainView.setGameEndedState();
 
-        }
-        else {
+        } else {
             translatedWords++;
             options = wordInteractor.getRamdomWords();
             currentWordToTranslate = options.get(0);
@@ -118,16 +116,19 @@ public class MainPresenterImpl implements MainPresenter{
     }
 
     private void setNotAnswered() {
-        mainView.setNotAnswered("O "+ notAnswered);
+        mainView.setNotAnswered(notAnswered);
     }
 
     private void setRightAnswer() {
-        mainView.setRightAnswer("✓ " + rightAnswers);
+        mainView.setRightAnswer(rightAnswers);
     }
 
     private void setWrongAnswer() {
-        mainView.setWrongAnswer("X " + wrongAnswers);
+        mainView.setWrongAnswer(wrongAnswers);
     }
 
-
+    @Override
+    public void finished() {
+        mainView.endLoadingData();
+    }
 }
