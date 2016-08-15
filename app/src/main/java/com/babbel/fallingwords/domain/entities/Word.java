@@ -9,6 +9,7 @@ import io.realm.annotations.PrimaryKey;
  */
 public class Word extends RealmObject {
 
+
     @PrimaryKey
     private String text_eng;
     private String text_spa;

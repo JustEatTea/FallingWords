@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.babbel.fallingwords.R;
+import com.babbel.fallingwords.domain.interactors.WordInteractorImpl;
 import com.babbel.fallingwords.ui.compoundviews.ScoreCustomView;
 
 /**
@@ -49,9 +50,8 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         wordOkBtn.setOnClickListener(this);
         workNotOkBtn.setOnClickListener(this);
         startGameBtn.setOnClickListener(this);
-        presenter = new MainPresenterImpl(this);
+        presenter = new MainPresenterImpl(this, new WordInteractorImpl());
         presenter.populateData();
-
     }
 
 
@@ -110,6 +110,15 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     public void enableWrongOkButtons(boolean enable) {
         wordOkBtn.setEnabled(enable);
         workNotOkBtn.setEnabled(enable);
+
+        if(enable){
+            wordOkBtn.setAlpha(1f);
+            workNotOkBtn.setAlpha(1f);
+        }
+        else{
+            wordOkBtn.setAlpha(0.5f);
+            workNotOkBtn.setAlpha(0.5f);
+        }
     }
 
     @Override
@@ -135,10 +144,12 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
                 break;
             case R.id.main_word_nok:
                 presenter.onWordNokBtnClicked(fallingWordTxtView.getText().toString());
+                presenter.getNextWordOption();
                 break;
 
             case R.id.main_start_game:
                 presenter.startGame();
+                presenter.getNextWordToTranslate();
                 break;
         }
     }

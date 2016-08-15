@@ -5,14 +5,13 @@ package com.babbel.fallingwords.ui.main;
  */
 public interface MainPresenter{
 
+
     void onWordOkBtnClicked(String currentWord);
     void onWordNokBtnClicked(String curentWord);
     void startGame();
     void populateData();
     void getNextWordOption();
     void setWordNotAnswered();
-//    void updateScore();
-//    void showNextWord();
-//    void endGame();
+    void getNextWordToTranslate();
 
 }

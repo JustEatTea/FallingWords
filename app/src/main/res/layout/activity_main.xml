@@ -5,31 +5,31 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/main_start_game"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/main_start_game"
         android:layout_centerInParent="true"
         android:text="@string/main_start_game" />
 
     <ProgressBar
         android:id="@+id/main_progress"
         style="@style/Widget.AppCompat.ProgressBar"
-        android:indeterminate="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_start_game"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true" />
 
     <RelativeLayout
 
         android:id="@+id/main_game_layout"
-        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/main_falling_word"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true" />
 
 
         <TextView
@@ -57,7 +57,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="poqiepqie"
             android:textAllCaps="true"
             android:textColor="@color/secondary_text"
             android:textSize="24sp"
@@ -71,10 +70,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
             android:background="@null"
             android:onClick=""
             android:text="@string/main_word_ok"
-            android:layout_margin="16dp"
             android:textColor="@color/colorCheckMark"
             android:textSize="36sp" />
 
@@ -86,8 +85,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:background="@null"
             android:layout_margin="16dp"
+            android:background="@null"
             android:onClick=""
             android:text="@string/main_word_nok"
             android:textColor="@color/colorWrong"

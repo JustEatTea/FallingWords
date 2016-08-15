@@ -1,7 +1,6 @@
 package com.babbel.fallingwords.ui.main;
 
 import com.babbel.fallingwords.domain.entities.Word;
-import com.babbel.fallingwords.domain.interactors.WordInteractorImpl;
 import com.babbel.fallingwords.domain.interactors.WordInteractor;
 
 import java.util.Collections;
@@ -15,7 +14,7 @@ public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLo
     private MainView mainView;
     private List<Word> options;
     private Word currentWordToTranslate;
-    private final int totalOfWordsPerGame = 1;
+    private final int totalOfWordsPerGame = 10;
     private int translatedWords;
     private int rightAnswers;
     private int wrongAnswers;
@@ -24,41 +23,46 @@ public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLo
     private WordInteractor wordInteractor;
 
 
-    public MainPresenterImpl(MainView mainView) {
+    public MainPresenterImpl(MainView mainView, WordInteractor wordInteractor) {
         this.mainView = mainView;
-        this.wordInteractor = new WordInteractorImpl();
+        this.wordInteractor = wordInteractor;
     }
 
     @Override
     public void onWordOkBtnClicked(String currentWord) {
 
-        if (currentWord.contentEquals(this.currentWordToTranslate.getText_spa())) {
-            rightAnswers++;
-            setRightAnswer();
-            getNextWordToTranslate();
-        } else {
-            wrongAnswers++;
-            setWrongAnswer();
-            getNextWordOption();
+        if(currentWordToTranslate!=null) {
+            if (currentWord.contentEquals(this.currentWordToTranslate.getText_spa())) {
+                rightAnswers+=5;
+                setRightAnswer();
+                getNextWordToTranslate();
+            } else {
+                wrongAnswers++;
+                setWrongAnswer();
+                getNextWordOption();
+            }
         }
     }
 
     @Override
     public void onWordNokBtnClicked(String currentWord) {
 
-        if (!currentWord.contentEquals(this.currentWordToTranslate.getText_spa())) {
-            rightAnswers++;
-            setRightAnswer();
-        } else {
-            wrongAnswers++;
-            setWrongAnswer();
+        if(currentWordToTranslate!=null) {
+            if (!currentWord.contentEquals(this.currentWordToTranslate.getText_spa())) {
+                rightAnswers++;
+                setRightAnswer();
+            } else {
+                wrongAnswers++;
+                setWrongAnswer();
+            }
         }
-        getNextWordOption();
     }
 
     @Override
     public void startGame() {
 
+        mainView.enableWrongOkButtons(true);
+        mainView.hideStartBtnAndShowGame();
         translatedWords = 0;
         rightAnswers = 0;
         wrongAnswers = 0;
@@ -66,9 +70,6 @@ public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLo
         setWrongAnswer();
         setRightAnswer();
         setNotAnswered();
-        mainView.enableWrongOkButtons(true);
-        mainView.hideStartBtnAndShowGame();
-        getNextWordToTranslate();
     }
 
 
@@ -100,7 +101,8 @@ public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLo
     }
 
 
-    private void getNextWordToTranslate() {
+    @Override
+    public void getNextWordToTranslate() {
 
         if (translatedWords == totalOfWordsPerGame) {
             mainView.setGameEndedState();
@@ -115,6 +117,10 @@ public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLo
         }
     }
 
+    @Override
+    public void finished() {
+        mainView.endLoadingData();
+    }
     private void setNotAnswered() {
         mainView.setNotAnswered(notAnswered);
     }
@@ -127,8 +133,30 @@ public class MainPresenterImpl implements MainPresenter, WordInteractor.OnDataLo
         mainView.setWrongAnswer(wrongAnswers);
     }
 
-    @Override
-    public void finished() {
-        mainView.endLoadingData();
+    public void setCurrentWordToTranslate(Word word){
+        this.currentWordToTranslate = word;
+    }
+
+
+    public int getRightAnswers() {
+        return rightAnswers;
+    }
+
+    public int getWrongAnswers() {
+        return wrongAnswers;
+    }
+
+
+    public int getNotAnswered() {
+        return notAnswered;
+    }
+
+
+    public void setTranslatedWords(int translatedWords) {
+        this.translatedWords = translatedWords;
+    }
+
+    public int getTotalOfWordsPerGame() {
+        return totalOfWordsPerGame;
     }
 }
